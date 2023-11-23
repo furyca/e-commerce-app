@@ -1,51 +1,33 @@
-import { FavoriteBorder, Menu } from "@mui/icons-material";
-import { Grid, IconButton, Typography } from "@mui/material";
-import ShoppingCartCheckoutOutlinedIcon from "@mui/icons-material/ShoppingCartCheckoutOutlined";
-import { Link } from "react-router-dom";
+import { Box, Button, Typography } from "@mui/material";
+import bg from "../assets/bg.png";
+import {
+  featured_button,
+  featured_heading,
+  featured_img,
+  header_container,
+  header_wrapper,
+} from "../style/component_styles/header";
 
 const Header = () => {
-
-
   return (
-    <Grid
-      container
-      component={'header'}
-      py={{xs: 1, sm: 2}}
-      px={{xs: 1, sm: 4, md: 8, lg: 16}}
-      mb={2}
-      justifyContent="space-between"
-      sx={{ bgcolor: "rgba(12, 12, 12, 0.8)", color: 'white', backdropFilter: "blur(10px)", position: 'sticky', top: 0, zIndex: 1 }}
-    >
-      <Grid item>
-        <IconButton sx={{ color: "inherit" }}>
-          <Menu />
-        </IconButton>
-        <Link to={"/"}>
-          <Typography
-            display={"inline-flex"}
-            sx={{ verticalAlign: "middle", cursor: 'pointer'}}
-            ml={{xs: 1, sm: 3}}
-            variant="h6"
-            fontWeight={900}
-            color={'primary'}
-          >
-            Store
+    <Box component={"header"} sx={header_container}>
+      <Box sx={header_wrapper}>
+        <Box>
+          <Typography variant="h6">Featured Product</Typography>
+          <Typography variant="h1" sx={featured_heading}>
+            Silicon Power 256GB SSD
           </Typography>
-        </Link>
-      </Grid>
-      <Grid item>
-        <Link to={"/favourites"}>
-          <IconButton sx={{ color: "white" }}>
-            <FavoriteBorder />
-          </IconButton>
-        </Link>
-        <Link to={"/cart"}>
-          <IconButton sx={{ color: "white", ml:{xs: 1, sm: 5} }}>
-            <ShoppingCartCheckoutOutlinedIcon />
-          </IconButton>
-        </Link>
-      </Grid>
-    </Grid>
+          <Typography variant="body">
+            3D NAND flash are applied to deliver high transfer speeds Remarkable transfer speeds that enable faster
+            bootup and improved overall system performance.{" "}
+          </Typography>
+          <Button variant="contained" sx={featured_button}>
+            SEE PRODUCT
+          </Button>
+        </Box>
+        <Box component={"img"} src={bg} sx={featured_img}></Box>
+      </Box>
+    </Box>
   );
 };
 

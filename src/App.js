@@ -1,49 +1,43 @@
-import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
+import { CssBaseline, ThemeProvider } from "@mui/material";
 import { Route, Routes } from "react-router-dom";
-import Header from "./components/Header";
-import ProductList from "./components/ProductList";
-import Cart from "./components/Cart";
-import ProductDetails from "./components/ProductDetails";
-import Favourites from "./components/Favourites";
-import Checkout from "./components/Checkout";
+import Cart from "./pages/Cart";
+import ProductDetails from "./pages/ProductDetails";
+import Favourites from "./pages/Favourites";
 import Footer from "./components/Footer";
-
-const theme = createTheme({
-  palette: {
-    mode: "light",
-    background: {
-      default: '#613794',
-    },
-  },
-  components: {
-    MuiCssBaseline: {
-      styleOverrides: {
-        '#root': {
-          display: 'flex',
-          minHeight: '100vh',
-          flexDirection: 'column',
-          justifyContent: 'space-between',
-        },
-        'a': {
-          textDecoration: 'none'
-        }
-      }
-    }
-  }
-
-});
+import NavBar from "./components/NavBar";
+import Home from "./pages/Home";
+import Category from "./pages/Category";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchData } from "./redux/rootSlice";
+import { darkTheme, lightTheme } from "./style/theme";
 
 function App() {
+  const { data, mode } = useSelector((state) => state.rootSlice);
+  const dispatch = useDispatch();
+  const theme = mode === "dark" ? darkTheme : lightTheme;
+
+
+  useEffect(() => {
+    dispatch(fetchData());
+
+    // eslint-disable-next-line
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("data", JSON.stringify(data));
+  }, [data]);
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Header />
+      <NavBar />
       <Routes>
-        <Route path="/" element={<ProductList />} />
+        <Route path="/" element={<Home />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/product_details/:id" element={<ProductDetails />} />
+        <Route path="/category/:category" element={<Category />} />
         <Route path="/favourites" element={<Favourites />} />
-        <Route path="/checkout" element={<Checkout />} />
       </Routes>
       <Footer />
     </ThemeProvider>

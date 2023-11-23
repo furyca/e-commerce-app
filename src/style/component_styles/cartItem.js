@@ -1,0 +1,1 @@
+export const cart_item = { borderBottom: "1px solid" };
